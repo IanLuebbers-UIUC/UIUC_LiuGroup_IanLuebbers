@@ -1,0 +1,77 @@
+###This is to change the particle to a gamma particle###
+
+###THIS DOES NOT WORK###
+
+/control/cout/ignoreThreadsExcept 0
+/control/verbose 2
+/run/verbose 1
+
+/tracking/verbose 2
+#/run/beamOn 1
+/tracking/verbose 0
+
+/gun/momentumAmp 0.1 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 0.25 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 0.5 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 0.75 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 1 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 1.25 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 1.5 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 1.75 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 2 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 2.25 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 2.5 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 2.75 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 3 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 3.25 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 3.5 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 3.75 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 4 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 4.25 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 4.5 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 4.75 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 5 MeV
+/run/beamOn 1000000
+
+/gun/momentumAmp 0.478 MeV
+/run/beamOn 1000000

@@ -1,0 +1,46 @@
+~~~~TestCALgamma2~~~~
+Simulation to produce gamma spectra of point source gammas and to analyze the features of these spectra
+
+The purpose of this simulation is to gather data from the gamma spectra, importantly the absolute efficiency of germanium detectors with an incident gamma energy of 478 keV.
+
+This simulation was built off of the rdecay01 example. Credit goes to the Geant4 team for providing this example for public use.
+
+Create this simulation as you would for the rdecay01 example (e.g. make build folder and use cmake).
+
+
+~~~~Files Included~~~~
+CMakeLists.txt - CMake list to build example
+GNUmakefile - [Not sure of use, was in rdecay01 example]
+History - Development progress of rdecay01 example
+README_TestCALgamma2 - This file
+README_rdecay01 - README file for rdecay01 example
+UserData - [Not sure of use, was in rdecay01 example]
+debug.mac - debug macro provided by rdecay01 example
+gamma2.mac - macro file to run this simulation at various point source gamma energies
+include - header files, all but two of which are included in rdecay01 example. My files I included are:
+        StepMax.hh - Step size header file provided by Jin Choi, used to attempt to fix the e+e- annihilation problem in Na22
+        stepping.hh - Stepping file used to track energy deposition in the germanium detector
+old_macros - macros I used to both debug the simulaiton and macros provided by the rdecay01 example
+plotHisto.C - old ROOT analysis file provided by the rdecay01 example
+rdecay01.cc - main file to run the simulation
+rdecay01.in - [Not sure of use, was in rdecay01 example]
+rdecay01.out - [Not sure of use, was in rdecay01 example]
+references - macros involving specific decays provided by the rdecay01 example
+rootFiles - ROOT files that are generated from this simulation
+	gammaData3.C - ROOT analysis script to produce the gamma spectra for each gamma energy and gather statistics from these spectra
+src - source files for this example, all but two are provided by the rdecay01 example
+        Both StepMax.cc and stepping.cc correspond to their respective header files
+vis.mac - visualization macro used to generate the GUI for this simulation, same as the one provided by the rdecay01 example
+
+~~~~Important Notes~~~~
+To change the dimensions of the germanium detectors, edit the values of zLength and diameter G4doubles in include/DetectorConstruction.hh
+
+There is an incident counter variable which is supposed to track incident gammas, but it does not work as intended. Further debugging is needed in order to get accurate counts.
+
+I tried to get a folder system to work, which takes the dimensions of the germanium detector and sorts the spectra corresponding to said detector, but I was unable to get it to work. I commented out the lines in my attempt, and the simulation does not sort the ROOT files based on the detector's geometries. These lines of commented code are marked with "BFS" (Broken File System).
+
+include/StepMax.hh and src/StepMax.cc are not implemented in this simulation, so these can be ignored. They can be implemented, if desired.
+
+In this simulation, you can toggle whether you want the gammas to be perpendicullarly incident on the surface of the detector, or if you want their momentums to be in a random direction. Toggle the G4bool.
+
+Beware of overwriting your ROOT files generated in rootFiles/dz/ when changing your detector geometry; I would recommend adjusting the G4strings to the desired dimensions in src/RunAction.cc.

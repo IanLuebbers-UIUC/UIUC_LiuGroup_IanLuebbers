@@ -1,0 +1,14 @@
+###This is to change the particle to a gamma particle###
+
+###THIS DOES NOT WORK###
+
+/control/cout/ignoreThreadsExcept 0
+/control/verbose 2
+/run/verbose 1
+
+/tracking/verbose 2
+#/run/beamOn 1
+/tracking/verbose 0
+
+/run/printProgress 200000
+/run/beamOn 10000000
