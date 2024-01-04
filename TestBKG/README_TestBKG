@@ -1,0 +1,55 @@
+~~~~TestBKG~~~~
+Simulation to make a background spectra for the germanium detectors
+
+This simulation was built for geant4 v11.1.0
+
+The purpose of this simulation is to simulate a background spectrum that the Alpha-Gamma Device will be at and to study the effects of sheilding the detector has on the magnitude of the spectrum.
+
+This simulation was built off of the rdecay01 example. Credit goes to the Geant4 team for providing this example for public use.
+
+Create this simulation as you would for the rdecay01 example (e.g. make build folder and use cmake).
+
+
+~~~~Files Included~~~~
+CMakeLists.txt - CMake list to build example
+GNUmakefile - [Not sure of use, was in rdecay01 example]
+History - Development progress of rdecay01 example
+README_TestBKG - This file
+README_rdecay01 - README file for rdecay01 example
+UserData - [Not sure of use, was in rdecay01 example]
+debug.mac - debug macro provided by rdecay01 example
+include - header files, all but two of which are included in rdecay01 example. My files I included are:
+        StepMax.hh - Step size header file provided by Jin Choi, used to attempt to fix the e+e- annihilation problem in Na22
+        stepping.hh - Stepping file used to track energy deposition in the germanium detector
+old_macros - macros I used to both debug the simulaiton and macros provided by the rdecay01 example
+plotHisto.C - old ROOT analysis file provided by the rdecay01 example
+rdecay01.cc - main file to run the simulation
+rdecay01.in - [Not sure of use, was in rdecay01 example]
+rdecay01.out - [Not sure of use, was in rdecay01 example]
+references - macros involving specific decays provided by the rdecay01 example
+rootFiles - ROOT files that are generated from this simulation
+	BKGall.C - ROOT script that will print all three sheilding spectra on one graph
+	BKGnoShield.C - ROOT script that will only print the unshielded spectrum
+src - source files for this example, all but two are provided by the rdecay01 example
+        Both StepMax.cc and stepping.cc correspond to their respective header files
+vis.mac - visualization macro used to generate the GUI for this simulation, same as the one provided by the rdecay01 example
+
+
+~~~~Important Notes~~~~
+There is an incident counter variable which is supposed to track incident gammas, but it does not work as intended. Further debugging is needed in order to get accurate counts.
+
+include/StepMax.hh and src/StepMax.cc are not implemented in this simulation, so these can be ignored. They can be implemented, if desired.
+
+FOR ROOT FILES: Currently, you have to manually change the names of the files to the same format as in BKGall.C and BKGnoShield.C in order for the analysis scripts to read them.
+
+In src/DetectorConstruction.cc, I attempted to build a custom messenger, but I had some problems with it, especially with tring to render the new geometries with the visualization GUI. I have yet to fully implement it, but some adjustments could be made to make it work.
+
+Also, the dimensions defined in src/DetectorConstruction.cc are not to the Alpha-Gamma specifications, so they will need to be adjusted. Once I have all of the allowed parameters, I will adapt this code to be more accurate to the AG device specifications.
+
+As of now, in order to construct the lead shielding, you have to uncomment Shield 1 & 3. I would like to implement a separate boolean to turn these on as well instead of hard-coding the changes.
+
+This simulation builds the background spectrum by cycling through a list of background isotopes with an assigned probability of decay in src/PrimaryGeneratorAction.cc. It draws a random number, and if this random number is less than the assigned probability, then the isotope will decay. If it is higher, then no isotope decays.
+
+The isotope list is currently an arbitrary one I used to demonstrate the proof-of-concept; I will need to adjust this list to the NIST background in order to reproduce it. The probabilities should correlate with the activities of the background isotopes, but this is yet to be confirmed.
+
+In src/stepping.cc, when adding the energy, there must be a check to confirm the volume the gamma is depositing energy in is the detector. I initally had not done this, and I got the background to "increase" with more shielding. This was because the shielding somehow was also tracking the energy depositions.
