@@ -1,6 +1,8 @@
 ~~~~TestCAL~~~~
 Simulation to produce calibration gamma spectra on germanium detectors
 
+This simulation was built for geant4 v11.1.0
+
 The purpose of this simulaiton is to confirm that the physics lists are working correctly. This is used as a basis for my other simulations.
 
 This simulation was built off of the rdecay01 example. Credit goes to the Geant4 team for providing this example for public use.
