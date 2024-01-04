@@ -1,6 +1,8 @@
 ~~~~TestCALgamma2~~~~
 Simulation to produce gamma spectra of point source gammas and to analyze the features of these spectra
 
+This simulation was built for geant4 v11.1.0
+
 The purpose of this simulation is to gather data from the gamma spectra, importantly the absolute efficiency of germanium detectors with an incident gamma energy of 478 keV.
 
 This simulation was built off of the rdecay01 example. Credit goes to the Geant4 team for providing this example for public use.
