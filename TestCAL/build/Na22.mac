@@ -1,5 +1,8 @@
 # macro for rdecay01
 #
+#/process/em/integral false
+#/run/initialize
+
 /control/cout/ignoreThreadsExcept 0
 /control/verbose 2
 /run/verbose 1
