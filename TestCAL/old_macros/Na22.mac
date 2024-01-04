@@ -12,4 +12,4 @@
 /tracking/verbose 0
 #
 /run/printProgress 200000  
-/run/beamOn 6000000
+/run/beamOn 1000000
