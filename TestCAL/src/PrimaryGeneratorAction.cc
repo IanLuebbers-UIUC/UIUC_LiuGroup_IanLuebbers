@@ -40,6 +40,8 @@
 #include "G4SystemOfUnits.hh"
 #include "Randomize.hh"
 
+#include "G4ChargedGeantino.hh"
+
 //....oooOO0OOooo........oooOO0OOooo........oooOO0OOooo........oooOO0OOooo......
 
 PrimaryGeneratorAction::PrimaryGeneratorAction()
@@ -48,6 +50,12 @@ PrimaryGeneratorAction::PrimaryGeneratorAction()
 {
   G4int n_particle = 1;
   fParticleGun  = new G4ParticleGun(n_particle);
+
+  //from ExampleB3a
+  G4ParticleTable* particleTable = G4ParticleTable::GetParticleTable();
+  G4ParticleDefinition* particle
+                    = particleTable->FindParticle("chargedgeantino");
+  fParticleGun->SetParticleDefinition(particle);
 
   fParticleGun->SetParticleEnergy(0*eV);
   fParticleGun->SetParticlePosition(G4ThreeVector(0.,0.,0.));
@@ -65,7 +73,7 @@ PrimaryGeneratorAction::~PrimaryGeneratorAction()
 
 void PrimaryGeneratorAction::GeneratePrimaries(G4Event* anEvent)
 {
-  if (fParticleGun->GetParticleDefinition() == G4Geantino::Geantino()) {  
+  if (fParticleGun->GetParticleDefinition() == G4ChargedGeantino::ChargedGeantino()) {  
     G4int Z = 27, A = 60;
     G4double ionCharge   = 0.*eplus;
     G4double excitEnergy = 0.*keV;
