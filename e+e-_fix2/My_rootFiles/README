@@ -1,0 +1,21 @@
+This folder contains various root files that detail the changes I made in my edits to the B3a example to probe the positron-electron annihilation problem I have been having for the past couple of months. Starting from the unedited version of the simulation, these are the spectra I simulated along with the corresponding edits I made at each step.
+
+Within the ROOT files, the spectra can be found under crystal_edep/crystal_edep_score.
+
+scoring2.root				Unedited B3a example
+Na22_40k_spectra/scoring2.root		Edited run2.mac to decay sodium-22 (my_run2.mac)
+Na22_1M_spectra_GeMany/scoring2.root	Edited run2.mac to run 1 million events
+					Edited ../src/DetectorConstruction.cc to change all detectors' material from Lu2SiO5 to G4_Ge
+Na22_1M_spectra_GeOne/scoring2.root	Edited ../src/DetectorConstruction.cc to change all detectors with one cylindrical Ge detector
+Na22_1M_spectra_PGalac/scoring2.root	Edited ../src/DetectorConstruction.cc to change patient volume's material from G4_BRAIN_ICRP to Galactic
+Na22_1M_spectra_WGalac/scoring2.root	Edited ../src/DetectorConstruction.cc to change world volume's material from G4_AIR to Galactic
+Na22_1M_spectra_0eV/scoring2.root	Edited ../src/DetectorConstruction.cc to change world volume's material from Galactic to G4_AIR
+					Edited ../src/PrimaryGeneratorAction.cc to change particle gun's SetParticleEnergy from 1 eV to 0 eV
+Na22_1M_spectra_WGalac2/scoring2.root	Edited ../src/DetectorConstruction.cc to change world volume's material from G4_AIR to Galactic
+e+e-_Ge.root				Ran previous simulation again w/ one event until I saw positron-electron annihilation in the detector
+Na22_1M_spectra_DeadLayer/scoring2.root	Edited ../src/DetectorConstruction.cc to add a "dead layer" to the germanium detector (1 cm in length)
+
+For the first five root & 0eV files, the 511 keV peak is present. For the WGalac & WGalac2 files, the 511 keV peak is missing.
+There was some energy deposition in the detector as a result from the annihilation, but it is not at a multiple of 511 keV.
+
+When I added the dead layer, the annihilation peak reappeared. Within Na22_1M_spectra_DeadLayer, there are subdirectories labelled by the dead layer length, which contain ROOT files of the spectra. The one ROOT file not in a subdirectory was produced with a dead layer of 1 cm in length.
