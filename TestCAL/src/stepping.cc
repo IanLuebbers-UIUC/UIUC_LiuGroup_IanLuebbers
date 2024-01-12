@@ -21,8 +21,12 @@ void MySteppingAction::UserSteppingAction(const G4Step *step)
 	G4LogicalVolume *fScoringVolume = detectorConstruction->GetScoringVolume();
 
 	//Add deposited energy at each step within the detector
-	G4double edep = step->GetTotalEnergyDeposit();
-	fEventAction->AddEdep(edep);
+	//This step must be done to confirm that the deposited energy is added only when it is absorbed into the detector
+	if(volume == fScoringVolume)
+        {
+		G4double edep = step->GetTotalEnergyDeposit();
+		fEventAction->AddEdep(edep);
+	}
 
 	//Check to see if the particle is a gamma and hit the detector
 	if(volume == fScoringVolume and part == G4Gamma::Gamma())

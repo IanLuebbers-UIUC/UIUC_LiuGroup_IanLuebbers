@@ -69,7 +69,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
     
     //Germanium for HPGe detector
   G4Material* Ge = man->FindOrBuildMaterial("G4_Ge");
-
+  G4Material* Al = man->FindOrBuildMaterial("G4_Al");
   
   //~~Materials for testing the e+e- annihilation in Na22 Decay~~//
     //Cu Film Material
@@ -105,6 +105,28 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   fScoringVolume = logicDet;
   fDetVolume = logicDet;
   G4VPhysicalVolume *physDet = new G4PVPlacement(0, G4ThreeVector(0, 0, zDistanceFromOrigin+zLength/2), logicDet, "physDet", logicWorld, false, 0, false);
+
+    //Al Shield
+    //Shell
+  G4double Sl = zLength/2 + 1*cm;
+  G4Tubs *solidAl1 = new G4Tubs("solidAl1", (diameter/2 + 1*cm), (diameter/2 + 1.1*cm), Sl/2, 0*deg, 360*deg);
+  G4LogicalVolume *logicAl1 = new G4LogicalVolume(solidAl1, Al, "logicAl1");
+  G4VPhysicalVolume *physAl1 = new G4PVPlacement(0, G4ThreeVector(0, 0, zDistanceFromOrigin+Sl/2-1*cm), logicAl1, "physAl1", logicWorld, false, 0, false);
+
+    //Cap
+  G4double Cl = 1*mm;
+  G4Tubs *solidAl2 = new G4Tubs("solidAl1", 0, (diameter/2 + 1.1*cm), Cl/2, 0*deg, 360*deg);
+  G4LogicalVolume *logicAl2 = new G4LogicalVolume(solidAl2, Al, "logicAl2");
+  G4VPhysicalVolume *physAl2 = new G4PVPlacement(0, G4ThreeVector(0, 0, zDistanceFromOrigin+Cl/2-1.1*cm), logicAl2, "physAl2", logicWorld, false, 0, false);
+  
+  /*    //Dead Layer
+  G4double DL_length = 500*um;
+
+  G4Tubs *solidDL = new G4Tubs("solidDL", 0, diameter/2, DL_length/2, 0*deg, 360*deg);
+  G4LogicalVolume *logicDL = new G4LogicalVolume(solidDL, Ge, "logicDL");
+  G4VPhysicalVolume *physDL = new G4PVPlacement(0, G4ThreeVector(0, 0, (zDistanceFromOrigin-DL_length/2)), logicDL, "DeadLayer", logicWorld, false, 0, false);
+*/
+
 
   //~~Geometries for testing the e+e- annihilation in Na22 Decay~~//
     //Copper Film
