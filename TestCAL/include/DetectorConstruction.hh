@@ -59,8 +59,8 @@ class DetectorConstruction : public G4VUserDetectorConstruction
     G4double GetWorldSize() {return fWorldSize;}; 
 
     //Change the dimensions of the germanium detector here
-    G4double zLength = 3*cm;
-    G4double diameter = 8*cm;
+    G4double zLength = 30*cm;
+    G4double diameter = 80*cm;
   private:
   
     G4double fWorldSize;
