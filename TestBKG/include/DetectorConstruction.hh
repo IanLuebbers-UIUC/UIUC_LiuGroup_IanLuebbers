@@ -77,7 +77,7 @@ class DetectorConstruction : public G4VUserDetectorConstruction
     G4double rThickness, zLength, dDiameter, outerShieldDiameter;
     G4bool isShielded;
 
-    G4Material *Galactic, *Ge, *Cu, *Pb, *Cobalt;
+    G4Material *Galactic, *Ge, *Cu, *Pb, *Al, *Cobalt;
 
     void DefineMaterials();
 };

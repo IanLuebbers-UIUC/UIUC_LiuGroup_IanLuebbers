@@ -91,6 +91,7 @@ void DetectorConstruction::DefineMaterials()
   Ge = man->FindOrBuildMaterial("G4_Ge");
   Cu = man->FindOrBuildMaterial("G4_Cu");
   Pb = man->FindOrBuildMaterial("G4_Pb");
+  Al = man->FindOrBuildMaterial("G4_Al");
 }
 
 G4VPhysicalVolume* DetectorConstruction::Construct()
@@ -118,6 +119,16 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 
   G4VPhysicalVolume *physiSource = new G4PVPlacement(0, G4ThreeVector(0, -1*fWorldSize/2+2.5*cm, 0), logicSource, "Source", logicWorld, false, 0, false);
 */
+    //Al Shield (for e+e- fix)
+    //Shell
+  G4double Sl = (zLength/2 + 1)*cm;
+  G4Tubs *solidAl1 = new G4Tubs("solidAl1", (dDiameter*cm/2 + 1*cm), (dDiameter*cm/2 + 1.1*cm), Sl/2, 0*deg, 360*deg);
+  G4LogicalVolume *logicAl1 = new G4LogicalVolume(solidAl1, Al, "logicAl1");  G4VPhysicalVolume *physAl1 = new G4PVPlacement(0, G4ThreeVector(0, 0, zDistanceFromOrigin+Sl/2-1*cm), logicAl1, "physAl1", logicWorld, false, 0, false);
+
+    //Cap
+  G4double Cl = 1*mm;
+  G4Tubs *solidAl2 = new G4Tubs("solidAl1", 0, (dDiameter*cm/2 + 1.1*cm), Cl/2, 0*deg, 360*deg);
+  G4LogicalVolume *logicAl2 = new G4LogicalVolume(solidAl2, Al, "logicAl2");  G4VPhysicalVolume *physAl2 = new G4PVPlacement(0, G4ThreeVector(0, 0, zDistanceFromOrigin+Cl/2-1.1*cm), logicAl2, "physAl2", logicWorld, false, 0, false);
 
     //Shielding
   if(isShielded)
@@ -126,7 +137,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
 	//////////UNCOMMENT THE LEAD SHIELDING TO INCLUDE THEM//////////
 	////////////////////////////////////////////////////////////////
 	
-/*	//Shield 1 (Lead)
+	//Shield 1 (Lead)
 	G4double Di1 = 1; //Inches
 	G4double Do1 = 5;
 	G4double zL1 = 2;
@@ -134,17 +145,17 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
   	solidShield1 = new G4Tubs("solidShield1", Di1*2.54/2*cm, Do1*2.54/2*cm, zL1*2.54/2*cm, 0*deg, 360*deg);
 	logicShield1 = new G4LogicalVolume(solidShield1, Pb, "logicShield1");
 	physShield1 = new G4PVPlacement(0, G4ThreeVector(0, 0, DistOrigin1*2.54*cm), logicShield1, "physShield1", logicWorld, false, 0, false);
-*/      
+      
 	//Shield 2 (Copper)
-        G4double Di2 = 4; //Inches
-        G4double Do2 = 4.125;
+        G4double Di2 = 4.125; //Inches
+        G4double Do2 = 4.25;
         G4double zL2 = zLength/2.54 + 0.5; //This will be changed
         G4double DistOrigin2 = zDistanceFromOrigin/2.54 + (zL2/2);
 	solidShield2 = new G4Tubs("solidShield2", Di2*2.54/2*cm, Do2*2.54/2*cm, zL2*2.54/2*cm, 0*deg, 360*deg);
         logicShield2 = new G4LogicalVolume(solidShield2, Cu, "logicShield2");
         physShield2 = new G4PVPlacement(0, G4ThreeVector(0, 0, DistOrigin2*2.54*cm), logicShield2, "physShield2", logicWorld, false, 0, false);
 
-/*	//Shield 3 (Lead)
+	//Shield 3 (Lead)
         G4double Di3 = 5.125; //Inches This will be changed
  	G4double Do3 = outerShieldDiameter;
         G4double zL3 = zL1 + zLength/2.54 + 1; //This will be changed
@@ -152,7 +163,7 @@ G4VPhysicalVolume* DetectorConstruction::Construct()
         solidShield3 = new G4Tubs("solidShield3", Di3*2.54/2*cm, Do3*2.54/2*cm, zL3*2.54/2*cm, 0*deg, 360*deg);
         logicShield3 = new G4LogicalVolume(solidShield3, Pb, "logicShield3");
         physShield3 = new G4PVPlacement(0, G4ThreeVector(0, 0, DistOrigin3*2.54*cm), logicShield3, "physShield3", logicWorld, false, 0, false);
-*/  }
+  }
 
 
   return physiWorld;
